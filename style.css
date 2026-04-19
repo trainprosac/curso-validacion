@@ -1,0 +1,200 @@
+/* ==========================================================================
+   1. COLORES DE TU MARCA (Cámbialos aquí y se cambiarán en toda la página)
+   ========================================================================== */
+:root {
+    --bg-principal: #0b1116;       /* Fondo súper oscuro (casi negro) de toda la web */
+    --bg-tarjeta: #151f28;         /* Fondo azul marino de las tarjetas de cursos y validación */
+    --color-marca-azul: #2D4052;   /* Azul medio, sacado de tu logo */
+    --color-acento: #B05530;       /* Color cobre/naranja (botones principales) */
+    --color-acento-hover: #D4663A; /* Color cobre claro (cuando pasas el ratón por encima) */
+    --texto-principal: #ffffff;    /* Color de los textos grandes (Blanco) */
+    --texto-secundario: #8B9DAF;   /* Color de los textos pequeños (Gris azulado) */
+    --borde-suave: #223240;        /* Color de las líneas de división */
+    --color-exito: #25D366;        /* Verde para el check de "Certificado Válido" y WhatsApp */
+}
+
+/* ==========================================================================
+   2. ESTILOS GENERALES (Cuerpo de la página y textos)
+   ========================================================================== */
+body { 
+    font-family: 'Montserrat', sans-serif; /* Tipo de letra */
+    margin: 0; 
+    background-color: var(--bg-principal); 
+    color: var(--texto-principal); 
+    scroll-behavior: smooth; /* Hace que al hacer clic en un enlace baje suavemente */
+}
+
+a { 
+    text-decoration: none; /* Quita el subrayado de los enlaces */
+    color: inherit;        /* Evita que los enlaces se pongan azules por defecto */
+} 
+
+/* ==========================================================================
+   3. BARRA SUPERIOR (Menú / Header)
+   ========================================================================== */
+header {
+    background-color: rgba(11, 17, 22, 0.85); /* Fondo oscuro semitransparente */
+    backdrop-filter: blur(12px);              /* Efecto vidrio borroso detrás del menú */
+    border-bottom: 1px solid var(--borde-suave); 
+    padding: 15px 50px; 
+    display: flex; justify-content: space-between; align-items: center;
+    position: sticky; top: 0; z-index: 1000;  /* Hace que el menú persiga al usuario al bajar */
+}
+.brand-container { display: flex; align-items: center; gap: 15px; }
+.logo-img { height: 45px; } /* Tamaño de tu logo */
+.logo-text { font-size: 24px; font-weight: 900; color: var(--texto-principal); letter-spacing: 1px; }
+
+nav { display: flex; align-items: center; }
+nav a { color: var(--texto-secundario); margin: 0 15px; font-weight: 500; transition: 0.3s; }
+nav a:hover { color: var(--color-acento-hover); }
+
+/* Botón de "Verificar Certificado" en el menú */
+.btn-nav-verificar { 
+    background: transparent; color: var(--color-acento-hover); border: 1px solid var(--color-acento); 
+    padding: 10px 20px; border-radius: 8px; margin-left: 15px; font-weight: 700; transition: 0.3s;
+}
+.btn-nav-verificar:hover { background: var(--color-acento); color: #fff; box-shadow: 0 0 15px rgba(176, 85, 48, 0.4); }
+
+/* ==========================================================================
+   4. SECCIÓN PRINCIPAL (El banner de la portada)
+   ========================================================================== */
+.hero {
+    /* AQUÍ PUEDES CAMBIAR LA IMAGEN DE FONDO DE LA PORTADA: Reemplaza 'IMAG_CURSO/fondo-hero.jpg' */
+    background: linear-gradient(rgba(11, 17, 22, 0.7), rgba(11, 17, 22, 0.95)), url('IMAG_HERO/HERO.png') center/cover;
+    text-align: center; padding: 140px 20px; border-bottom: 1px solid var(--borde-suave);
+}
+.hero h1 { font-size: 56px; font-weight: 900; letter-spacing: -1px; margin-bottom: 15px; }
+.hero h1 span { color: var(--color-acento-hover); } /* Pinta la palabra "continua" de cobre */
+.hero p { font-size: 18px; color: var(--texto-secundario); max-width: 600px; margin: 0 auto; line-height: 1.6;}
+
+/* ==========================================================================
+   5. TARJETAS DE CURSOS (Grilla de la página principal)
+   ========================================================================== */
+.seccion-cursos { padding: 80px 20px; text-align: center; max-width: 1200px; margin: auto; }
+.seccion-cursos h2 { font-size: 36px; margin-bottom: 60px; font-weight: 800; color: #fff; }
+.grid-cursos { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 30px; }
+
+.card-curso {
+    background: var(--bg-tarjeta); border: 1px solid var(--borde-suave); border-radius: 16px; 
+    overflow: hidden; transition: 0.4s; display: flex; flex-direction: column; text-align: left;
+}
+.card-curso:hover { transform: translateY(-10px); border-color: var(--color-acento); box-shadow: 0 15px 30px rgba(176, 85, 48, 0.15); }
+.card-curso img { width: 100%; height: 200px; object-fit: cover; opacity: 0.7; transition: 0.4s; filter: grayscale(30%);}
+.card-curso:hover img { opacity: 1; filter: grayscale(0%);}
+
+.card-body { padding: 25px; flex-grow: 1; display: flex; flex-direction: column; }
+.card-body h3 { margin-top: 0; color: var(--texto-principal); font-size: 22px; font-weight: 700; margin-bottom: 10px;}
+.card-body p { font-size: 15px; color: var(--texto-secundario); margin-bottom: 30px; line-height: 1.5; }
+.btn-temario {
+    margin-top: auto; display: inline-block; background: transparent; color: var(--color-acento-hover); 
+    border: 1px solid var(--color-acento); padding: 12px; border-radius: 8px; font-weight: 700; 
+    text-align: center; text-transform: uppercase; font-size: 14px; letter-spacing: 1px; transition: 0.3s;
+}
+.card-curso:hover .btn-temario { background: var(--color-acento); color: #fff; box-shadow: 0 0 15px rgba(176, 85, 48, 0.4); }
+
+/* ==========================================================================
+   6. BOTONES DE CONTACTO (En la página principal y flotante)
+   ========================================================================== */
+.seccion-contacto { background: var(--bg-tarjeta); padding: 80px 20px; text-align: center; border-top: 1px solid var(--borde-suave); }
+.seccion-contacto h2 { font-size: 32px; font-weight: 800; margin-bottom: 15px;}
+.seccion-contacto p { color: var(--texto-secundario); margin-bottom: 40px; font-size: 16px;}
+.contacto-botones { display: flex; justify-content: center; gap: 20px; flex-wrap: wrap;}
+
+.btn-wa { background: var(--color-exito); color: white; padding: 16px 35px; border-radius: 10px; font-weight: 700; font-size: 16px; transition: 0.3s; }
+.btn-wa:hover { box-shadow: 0 0 20px rgba(37, 211, 102, 0.4); transform: translateY(-2px);}
+
+.btn-correo { background: var(--color-marca-azul); border: 1px solid var(--borde-suave); color: var(--texto-principal); padding: 16px 35px; border-radius: 10px; font-weight: 700; font-size: 16px; transition: 0.3s; }
+.btn-correo:hover { background: var(--color-acento); box-shadow: 0 0 15px rgba(176, 85, 48, 0.4); border-color: var(--color-acento);}
+
+.whatsapp-flotante { 
+    position: fixed; bottom: 30px; right: 30px; background-color: var(--color-exito); color: white; 
+    padding: 15px 20px; border-radius: 50px; font-weight: bold; box-shadow: 0 4px 15px rgba(0,0,0,0.5); 
+    z-index: 1000; transition: 0.3s;
+}
+.whatsapp-flotante:hover { transform: scale(1.1); box-shadow: 0 0 20px rgba(37, 211, 102, 0.5); }
+
+/* ==========================================================================
+   7. PÁGINA DE VERIFICACIÓN DE CERTIFICADOS (verificar.html)
+   ========================================================================== */
+.verificacion-wrapper { flex-grow: 1; display: flex; justify-content: center; align-items: center; padding: 60px 20px; }
+.verificacion-caja { background: var(--bg-tarjeta); padding: 50px 40px; border-radius: 20px; border: 1px solid var(--borde-suave); text-align: center; width: 100%; max-width: 550px; }
+.verificacion-caja h1 { margin-top: 0; font-size: 32px; font-weight: 800; }
+.verificacion-caja p { color: var(--texto-secundario); font-size: 15px; margin-bottom: 30px; line-height: 1.6; }
+
+/* El cajón donde se escribe el código */
+.verificacion-caja input {
+    width: 85%; padding: 16px; margin-bottom: 25px; background-color: var(--bg-principal); 
+    border: 2px solid var(--borde-suave); border-radius: 10px; font-size: 18px; text-align: center; 
+    color: var(--texto-principal); font-weight: 600; transition: 0.3s; outline: none; box-sizing: border-box;
+}
+.verificacion-caja input:focus { border-color: var(--color-acento); box-shadow: 0 0 15px rgba(176, 85, 48, 0.25); }
+
+/* El botón de Validar */
+.btn-validar {
+    background-color: var(--color-acento); color: #fff; border: none; padding: 16px 40px; font-size: 18px; 
+    font-weight: 800; border-radius: 10px; cursor: pointer; transition: all 0.3s ease; width: 85%; 
+    text-transform: uppercase; letter-spacing: 1px;
+}
+.btn-validar:hover { background-color: var(--color-acento-hover); box-shadow: 0 0 20px rgba(176, 85, 48, 0.5); transform: translateY(-2px); }
+
+/* El cuadro que aparece cuando el certificado es correcto */
+.resultado-tarjeta { background: rgba(45, 64, 82, 0.3); border: 1px solid rgba(176, 85, 48, 0.3); border-radius: 12px; padding: 30px; text-align: left; margin-top: 30px; }
+
+/* ==========================================================================
+   8. PIE DE PÁGINA (Footer)
+   ========================================================================== */
+footer { text-align: center; padding: 30px; color: var(--texto-secundario); border-top: 1px solid var(--borde-suave); }
+/* ==========================================================================
+   9. PÁGINAS DE TEMARIOS (Diseño específico para los cursos)
+   ========================================================================== */
+/* Banner superior del curso */
+.curso-hero {
+    background: linear-gradient(rgba(11, 17, 22, 0.8), rgba(11, 17, 22, 0.95)), url('IMAG_HERO/HERO.png') center/cover;
+    text-align: center; padding: 100px 20px 80px 20px; border-bottom: 1px solid var(--borde-suave);
+}
+.curso-hero h1 { font-size: 48px; margin-bottom: 10px; font-weight: 900; color: var(--color-acento-hover); }
+.curso-hero p { font-size: 18px; color: var(--texto-secundario); max-width: 700px; margin: 0 auto; line-height: 1.6; }
+
+/* Sección principal de la lista del temario */
+.seccion-temario { max-width: 800px; margin: 60px auto; padding: 0 20px; }
+.seccion-temario h2 { font-size: 32px; text-align: center; margin-bottom: 40px; border-bottom: 2px solid var(--color-acento); padding-bottom: 15px; display: block; }
+
+/* Tarjetas de cada módulo */
+.modulo-item {
+    background: var(--bg-tarjeta); border: 1px solid var(--borde-suave);
+    border-left: 5px solid var(--color-acento); border-radius: 8px;
+    padding: 20px 25px; margin-bottom: 15px; transition: 0.3s;
+    display: flex; flex-direction: column; text-align: left;
+}
+.modulo-item:hover { 
+    transform: translateX(10px); 
+    border-left-color: var(--color-acento-hover); 
+    box-shadow: 0 5px 15px rgba(176, 85, 48, 0.1); 
+}
+.modulo-titulo { font-size: 18px; font-weight: 700; color: var(--texto-principal); margin-bottom: 5px; }
+.modulo-horas { font-size: 14px; color: var(--color-acento); font-weight: 700; margin-top: 5px;}
+
+/* ==========================================================================
+   10. BOTONES FINALES DEL CURSO (Call to Action)
+   ========================================================================== */
+.seccion-cta {
+    background: var(--bg-tarjeta); text-align: center; padding: 60px 20px;
+    border-top: 1px solid var(--borde-suave); border-bottom: 1px solid var(--borde-suave);
+    margin-top: 50px;
+}
+.seccion-cta h3 { font-size: 28px; margin-top: 0; margin-bottom: 15px; }
+.seccion-cta p { color: var(--texto-secundario); margin-bottom: 30px; font-size: 16px; }
+
+.botones-cta { display: flex; justify-content: center; gap: 20px; flex-wrap: wrap; }
+
+.btn-inscribirse { 
+    background: var(--color-acento); color: #fff; padding: 18px 40px; 
+    border-radius: 10px; font-weight: 800; font-size: 18px; text-transform: uppercase; transition: 0.3s; 
+}
+.btn-inscribirse:hover { background: var(--color-acento-hover); box-shadow: 0 0 20px rgba(176, 85, 48, 0.5); transform: translateY(-3px); }
+
+.btn-wa-info { 
+    background: transparent; border: 2px solid var(--color-exito); color: var(--color-exito); 
+    padding: 18px 40px; border-radius: 10px; font-weight: 800; font-size: 18px; transition: 0.3s; 
+}
+.btn-wa-info:hover { background: var(--color-exito); color: #fff; box-shadow: 0 0 20px rgba(37, 211, 102, 0.4); transform: translateY(-3px); }

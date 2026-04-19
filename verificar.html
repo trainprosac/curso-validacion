@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Verificar Certificado - TRAINPRO</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;700;900&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="style.css">
+    
+    <script src="script.js" defer></script>
+</head>
+<body>
+
+    <header>
+        <a href="index.html" class="brand-container">
+            <img src="LOGO TRAINPRO/LOGO_TRAINPRO.png" alt="Logo Trainpro" class="logo-img">
+            <span class="logo-text">TRAINPRO</span>
+        </a>
+        <nav>
+            <a href="index.html">Volver a la Página Principal</a>
+        </nav>
+    </header>
+
+    <div class="verificacion-wrapper">
+        <div class="verificacion-caja">
+            <h1>Verificar Certificado</h1>
+            <p>Ingresa el código único del certificado para comprobar su validez y estado en nuestra base de datos oficial.</p>
+            
+            <input type="text" id="inputCodigo" placeholder="Ingresa el código (Ej: 650)">
+            <button class="btn-validar" onclick="verificarCertificado()">Validar Certificado</button>
+            
+            <div id="resultado-validacion"></div>
+        </div>
+    </div>
+
+    <footer>
+        &copy; 2026 TRAINPRO - Expertos en Capacitación Industrial
+    </footer>
+
+</body>
+</html>
