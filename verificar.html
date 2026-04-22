@@ -5,10 +5,145 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Verificar Certificado - TRAINPRO</title>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;700;900&display=swap" rel="stylesheet">
-    
-    <link rel="stylesheet" href="style.css">
-    
-    <script src="script.js" defer></script>
+    <style>
+        /* --- PALETA DE COLORES (Basada en el logo TP) --- */
+        :root {
+            --bg-principal: #0b1116; 
+            --bg-tarjeta: #151f28; 
+            --color-marca-azul: #2D4052;
+            --color-acento: #B05530; 
+            --color-acento-hover: #D4663A; 
+            --texto-principal: #ffffff;
+            --texto-secundario: #8B9DAF; 
+            --borde-suave: #223240;
+            --color-exito: #25D366; /* Verde solo para el check de válido */
+        }
+
+        body { 
+            font-family: 'Montserrat', sans-serif; 
+            margin: 0; 
+            background-color: var(--bg-principal); 
+            color: var(--texto-principal); 
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* --- TOPBAR --- */
+        header {
+            background-color: rgba(11, 17, 22, 0.85); 
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--borde-suave);
+            padding: 15px 50px; 
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center;
+            position: sticky; top: 0; z-index: 1000;
+        }
+        .brand-container {
+            display: flex; align-items: center; gap: 15px; text-decoration: none;
+        }
+        .logo-img { height: 45px; } 
+        .logo-text { 
+            font-size: 24px; font-weight: 900; 
+            color: var(--texto-principal); letter-spacing: 1px;
+        }
+        nav a { 
+            text-decoration: none; color: var(--texto-secundario); 
+            font-weight: 500; transition: color 0.3s; 
+        }
+        nav a:hover { color: var(--color-acento-hover); }
+
+        /* --- CONTENEDOR CENTRAL --- */
+        .verificacion-wrapper {
+            flex-grow: 1;
+            display: flex; justify-content: center; align-items: center; 
+            padding: 60px 20px;
+            background: radial-gradient(circle at 50% -20%, #1f2d3a 0%, var(--bg-principal) 60%);
+        }
+        
+        .verificacion-caja {
+            background: var(--bg-tarjeta); 
+            width: 100%; max-width: 550px;
+            padding: 50px 40px; border-radius: 20px; 
+            border: 1px solid var(--borde-suave);
+            box-shadow: 0 25px 50px rgba(0,0,0,0.5);
+            text-align: center;
+        }
+
+        .verificacion-caja h1 { margin-top: 0; font-size: 32px; font-weight: 800; color: #fff;}
+        .verificacion-caja p { color: var(--texto-secundario); font-size: 15px; line-height: 1.6; margin-bottom: 30px; }
+
+        /* Input Neón Cobre */
+        .verificacion-caja input {
+            width: 85%; padding: 16px; margin-bottom: 25px;
+            background-color: var(--bg-principal);
+            border: 2px solid var(--borde-suave); border-radius: 10px; 
+            font-size: 18px; text-align: center; color: var(--texto-principal);
+            font-weight: 600; transition: 0.3s; outline: none;
+        }
+        .verificacion-caja input:focus {
+            border-color: var(--color-acento);
+            box-shadow: 0 0 15px rgba(176, 85, 48, 0.25);
+        }
+
+        /* Botón Cobre */
+        .btn-validar {
+            background-color: var(--color-acento); color: #fff; border: none;
+            padding: 16px 40px; font-size: 18px; font-weight: 800;
+            border-radius: 10px; cursor: pointer; transition: all 0.3s ease; 
+            width: 90%; text-transform: uppercase; letter-spacing: 1px;
+        }
+        .btn-validar:hover { 
+            background-color: var(--color-acento-hover); 
+            box-shadow: 0 0 20px rgba(176, 85, 48, 0.5);
+            transform: translateY(-2px);
+        }
+
+        #resultado-validacion { margin-top: 35px; }
+        .invalido { color: #ff4d4d; font-weight: bold; font-size: 16px;}
+
+        /* --- TARJETA DE RESULTADO --- */
+        .resultado-tarjeta {
+            background-color: rgba(45, 64, 82, 0.3); /* Usa el azul de tu logo como fondo sutil */
+            border-radius: 12px; padding: 30px; text-align: left; 
+            border: 1px solid rgba(176, 85, 48, 0.3); /* Borde cobre */
+            animation: fadeIn 0.5s ease;
+        }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+        .titulo-valido {
+            color: var(--color-exito); text-align: center; margin-top: 0; font-weight: 800;
+            font-size: 22px; display: flex; justify-content: center; align-items: center; gap: 10px;
+        }
+        
+        .dato-grupo { border-bottom: 1px solid var(--borde-suave); padding-bottom: 15px; margin-bottom: 15px; }
+        .dato-grupo:last-child { border-bottom: none; }
+        .dato-label { 
+            display: block; color: var(--texto-secundario); font-weight: 500; 
+            font-size: 12px; margin-bottom: 5px; text-transform: uppercase; letter-spacing: 1px;
+        }
+        .dato-valor { display: block; color: var(--texto-principal); font-size: 18px; text-transform: uppercase; font-weight: 700;}
+        
+        /* BOTONES DE CONTACTO */
+        .acciones-resultado {
+            margin-top: 25px; padding-top: 20px; text-align: center;
+            border-top: 1px dashed var(--borde-suave);
+        }
+        .acciones-resultado p { font-size: 14px; color: var(--texto-secundario); font-weight: 600; margin-bottom: 15px;}
+        .botones-info { display: flex; gap: 15px; justify-content: center; flex-wrap: wrap; }
+        .btn-info-wa { background: #25D366; color: #fff; padding: 12px 20px; text-decoration: none; border-radius: 8px; font-size: 14px; font-weight: 700; transition: 0.3s; }
+        .btn-info-wa:hover { box-shadow: 0 0 15px rgba(37, 211, 102, 0.4); }
+        .btn-info-correo { background: transparent; border: 1px solid var(--color-acento); color: var(--color-acento-hover); padding: 12px 20px; text-decoration: none; border-radius: 8px; font-size: 14px; font-weight: 700; transition: 0.3s; }
+        .btn-info-correo:hover { background: var(--color-acento); color: #fff; box-shadow: 0 0 15px rgba(176, 85, 48, 0.4);}
+
+        /* FOOTER */
+        footer {
+            text-align: center; padding: 20px; color: var(--texto-secundario);
+            font-size: 14px; border-top: 1px solid var(--borde-suave);
+            background-color: var(--bg-principal);
+        }
+    </style>
 </head>
 <body>
 
@@ -38,5 +173,96 @@
         &copy; 2026 TRAINPRO - Expertos en Capacitación Industrial
     </footer>
 
+    <script>
+        const SHEET_CSV_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQIoFtMp-CxDA4AdaDS4Kqb0DhcuGLe90dbVSQGFV7e3OfztbDPg4hXDehcjsfDrc5trQSXro7qZIwl/pub?gid=1088449560&single=true&output=csv';
+
+        function parseCSVRow(str) {
+            let arr = []; let quote = false; let col = '';
+            for (let i = 0; i < str.length; i++) {
+                let cc = str[i];
+                if (cc === '"') { quote = !quote; } 
+                else if (cc === ',' && !quote) { arr.push(col.trim()); col = ''; } 
+                else { col += cc; }
+            }
+            arr.push(col.trim()); return arr;
+        }
+
+        async function verificarCertificado() {
+            const codigoIngresado = document.getElementById('inputCodigo').value.trim();
+            const resultadoDiv = document.getElementById('resultado-validacion');
+
+            if(codigoIngresado === "") {
+                resultadoDiv.innerHTML = "<span class='invalido'>❌ Por favor, ingresa un código.</span>";
+                return;
+            }
+
+            resultadoDiv.innerHTML = "<span style='color: var(--texto-secundario);'>Procesando solicitud...</span>";
+
+            try {
+                const response = await fetch(SHEET_CSV_URL);
+                const data = await response.text();
+                const filas = data.split('\n');
+                let encontrado = false;
+                let datosAlumno = {};
+
+                for(let i = 1; i < filas.length; i++) {
+                    if (filas[i].trim() === "") continue; 
+                    let columnas = parseCSVRow(filas[i]);
+                    
+                    if (columnas.length >= 8) {
+                        let codigoFila = columnas[5]; 
+                        if (codigoFila === codigoIngresado) {
+                            encontrado = true;
+                            datosAlumno = { 
+                                titular: columnas[1],       
+                                vencimiento: columnas[3],   
+                                tema: columnas[4],          
+                            };
+                            break;
+                        }
+                    }
+                }
+
+                if(encontrado) {
+                    const mensajeWA = `Hola, quisiera solicitar más información sobre el certificado código ${codigoIngresado} a nombre de ${datosAlumno.titular}.`;
+                    const linkWA = `https://wa.me/qr/A4UEBCCMYIQLC1?text=${encodeURIComponent(mensajeWA)}`;
+                    const linkCorreo = `mailto:gerencia@trainprosac.com?subject=Consulta sobre Certificado ${codigoIngresado}&body=${encodeURIComponent(mensajeWA)}`;
+
+                    resultadoDiv.innerHTML = `
+                        <div class="resultado-tarjeta">
+                            <h3 class="titulo-valido">✓ CERTIFICADO VÁLIDO</h3>
+                            
+                            <div class="dato-grupo">
+                                <span class="dato-label">Titular del Certificado</span>
+                                <span class="dato-valor">${datosAlumno.titular}</span>
+                            </div>
+                            
+                            <div class="dato-grupo">
+                                <span class="dato-label">Programa / Tema</span>
+                                <span class="dato-valor">${datosAlumno.tema}</span>
+                            </div>
+                            
+                            <div class="dato-grupo">
+                                <span class="dato-label">Estado / Fecha de Vencimiento</span>
+                                <span class="dato-valor" style="color: var(--color-acento-hover);">${datosAlumno.vencimiento}</span>
+                            </div>
+                            
+                            <div class="acciones-resultado">
+                                <p>¿Necesitas validar más detalles?</p>
+                                <div class="botones-info">
+                                    <a href="${linkWA}" target="_blank" class="btn-info-wa">Soporte WhatsApp</a>
+                                    <a href="${linkCorreo}" class="btn-info-correo">Enviar Correo</a>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                } else {
+                    resultadoDiv.innerHTML = "<span class='invalido'>❌ El certificado no figura en la base de datos oficial.</span>";
+                }
+            } catch (error) {
+                resultadoDiv.innerHTML = "<span class='invalido'>Error de conexión con el servidor. Intenta de nuevo.</span>";
+            }
+        }
+    </script>
 </body>
 </html>
