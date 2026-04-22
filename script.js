@@ -77,7 +77,7 @@ async function verificarCertificado() {
             }
 
             const mensajeWA = `Hola, quisiera solicitar más información sobre el certificado código ${codigoIngresado} a nombre de ${d.titular}.`;
-            const linkWA = `https://wa.me/${NUMERO_WHATSAPP}?text=${encodeURIComponent(mensajeWA)}`;
+            const linkWA = `https://wa.me/${51987260390}?text=${encodeURIComponent(mensajeWA)}`;
             const linkCorreo = `mailto:${CORREO_CONTACTO}?subject=Consulta sobre Certificado ${codigoIngresado}&body=${encodeURIComponent(mensajeWA)}`;
 
             // Inyectamos el HTML incluyendo la variable alertaHTML
