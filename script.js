@@ -3,7 +3,7 @@
 // ==========================================================================
 
 const SHEET_CSV_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQIoFtMp-CxDA4AdaDS4Kqb0DhcuGLe90dbVSQGFV7e3OfztbDPg4hXDehcjsfDrc5trQSXro7qZIwl/pub?gid=1088449560&single=true&output=csv';
-const NUMERO_WHATSAPP = '51999999999';
+const NUMERO_WHATSAPP = '51987260390';
 const CORREO_CONTACTO = 'gerencia@trainprosac.com';
 
 // ==========================================================================
@@ -77,7 +77,7 @@ async function verificarCertificado() {
             }
 
             const mensajeWA = `Hola, quisiera solicitar más información sobre el certificado código ${codigoIngresado} a nombre de ${d.titular}.`;
-            const linkWA = `https://wa.me/${51987260390}?text=${encodeURIComponent(mensajeWA)}`;
+            const linkWA = `https://wa.me/${NUMERO_WHATSAPP}?text=${encodeURIComponent(mensajeWA)}`;
             const linkCorreo = `mailto:${CORREO_CONTACTO}?subject=Consulta sobre Certificado ${codigoIngresado}&body=${encodeURIComponent(mensajeWA)}`;
 
             // Inyectamos el HTML incluyendo la variable alertaHTML
