@@ -5,89 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Temario del Curso - TRAINPRO</title>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;700;900&display=swap" rel="stylesheet">
-    <style>
-        /* --- PALETA DE COLORES (Basada en el logo TP) --- */
-        :root {
-            --bg-principal: #0b1116; 
-            --bg-tarjeta: #151f28; 
-            --color-marca-azul: #2D4052; 
-            --color-acento: #B05530; 
-            --color-acento-hover: #D4663A; 
-            --texto-principal: #ffffff;
-            --texto-secundario: #8B9DAF; 
-            --borde-suave: #223240;
-        }
-
-        body { 
-            font-family: 'Montserrat', sans-serif; 
-            margin: 0; background-color: var(--bg-principal); color: var(--texto-principal); 
-            scroll-behavior: smooth;
-        }
-
-        /* --- TOPBAR --- */
-        header {
-            background-color: rgba(11, 17, 22, 0.85); backdrop-filter: blur(12px);
-            border-bottom: 1px solid var(--borde-suave); padding: 15px 50px; 
-            display: flex; justify-content: space-between; align-items: center;
-            position: sticky; top: 0; z-index: 1000;
-        }
-        .brand-container { display: flex; align-items: center; gap: 15px; text-decoration: none; }
-        .logo-img { height: 45px; } 
-        .logo-text { font-size: 24px; font-weight: 900; color: var(--texto-principal); letter-spacing: 1px; }
-        nav a { text-decoration: none; color: var(--texto-secundario); margin: 0 15px; font-weight: 500; transition: color 0.3s; }
-        nav a:hover { color: var(--color-acento-hover); }
-
-        /* --- HERO DEL CURSO --- */
-        .curso-hero {
-            background: linear-gradient(rgba(11, 17, 22, 0.8), rgba(11, 17, 22, 0.95)), url('IMAG_CURSO/fondo-hero.jpg') center/cover;
-            text-align: center; padding: 100px 20px 80px 20px; border-bottom: 1px solid var(--borde-suave);
-        }
-        .curso-hero h1 { font-size: 48px; margin-bottom: 10px; font-weight: 900; color: var(--color-acento-hover); }
-        .curso-hero p { font-size: 18px; color: var(--texto-secundario); max-width: 700px; margin: 0 auto; line-height: 1.6; }
-
-        /* --- SECCIÓN TEMARIO --- */
-        .seccion-temario { max-width: 800px; margin: 60px auto; padding: 0 20px; }
-        .seccion-temario h2 { font-size: 32px; text-align: center; margin-bottom: 40px; border-bottom: 2px solid var(--color-acento); padding-bottom: 15px; display: inline-block; width: 100%;}
-        
-        .modulo-item {
-            background: var(--bg-tarjeta); border: 1px solid var(--borde-suave);
-            border-left: 5px solid var(--color-acento); border-radius: 8px;
-            padding: 20px 25px; margin-bottom: 15px; transition: 0.3s;
-            display: flex; flex-direction: column;
-        }
-        .modulo-item:hover { transform: translateX(10px); border-left-color: var(--color-acento-hover); box-shadow: 0 5px 15px rgba(176, 85, 48, 0.1); }
-        .modulo-titulo { font-size: 18px; font-weight: 700; color: var(--texto-principal); margin-bottom: 5px; }
-        .modulo-horas { font-size: 14px; color: var(--color-acento); font-weight: 700; margin-top: 5px;}
-
-        /* --- CALL TO ACTION (BOTONES) --- */
-        .seccion-cta {
-            background: var(--bg-tarjeta); text-align: center; padding: 60px 20px;
-            border-top: 1px solid var(--borde-suave); border-bottom: 1px solid var(--borde-suave);
-            margin-top: 50px;
-        }
-        .seccion-cta h3 { font-size: 28px; margin-top: 0; margin-bottom: 15px; }
-        .seccion-cta p { color: var(--texto-secundario); margin-bottom: 30px; font-size: 16px; }
-        
-        .botones-cta { display: flex; justify-content: center; gap: 20px; flex-wrap: wrap; }
-        .btn-inscribirse { 
-            background: var(--color-acento); color: #fff; padding: 18px 40px; text-decoration: none; 
-            border-radius: 10px; font-weight: 800; font-size: 18px; text-transform: uppercase; transition: 0.3s; 
-        }
-        .btn-inscribirse:hover { background: var(--color-acento-hover); box-shadow: 0 0 20px rgba(176, 85, 48, 0.5); transform: translateY(-3px); }
-        .btn-wa-info { 
-            background: transparent; border: 2px solid #25D366; color: #25D366; padding: 18px 40px; 
-            text-decoration: none; border-radius: 10px; font-weight: 800; font-size: 18px; transition: 0.3s; 
-        }
-        .btn-wa-info:hover { background: #25D366; color: #fff; box-shadow: 0 0 20px rgba(37, 211, 102, 0.4); transform: translateY(-3px); }
-
-        footer { text-align: center; padding: 30px; color: var(--texto-secundario); font-size: 14px; background-color: var(--bg-principal); }
-    </style>
+    <link rel="stylesheet" href="style.css">
+    <script src="script.js" defer></script>
 </head>
 <body>
 
     <header>
         <a href="index.html" class="brand-container">
-            <img src="logo.png" alt="Logo Trainpro" class="logo-img">
+            <img src="LOGO TRAINPRO/LOGO_TRAINPRO.png" alt="Logo Trainpro" class="logo-img">
             <span class="logo-text">TRAINPRO</span>
         </a>
         <nav>
@@ -97,14 +22,13 @@
     </header>
 
     <section class="curso-hero">
-        <h1>Prevencionista de Riesgos Laborales</h1>
+        <h1>PREVENCIONISTA DE RIESGOS LABORALES</h1>
         <p>Aprende las normativas y procedimientos exactos para garantizar la seguridad operativa en tu entorno laboral.</p>
     </section>
 
     <section class="seccion-temario">
         <h2>Sílabo del Curso</h2>
-        
-        <div class="modulo-item">
+<div class="modulo-item">
             <div class="modulo-titulo">CAPÍTULO 1: Introducción a Prevención de Riesgos Laborales y Principios Básicos de SGSST según la Ley N° 29783.</div>
         </div>
         <div class="modulo-item">
@@ -125,18 +49,17 @@
         <div class="modulo-item">
             <div class="modulo-titulo">CAPÍTULO 7: Seguridad basada en el Comportamiento (SBC)</div>
         </div>
-
-    <section class="seccion-cta">
+            <section class="seccion-cta">
         <h3>¿Listo para dar el siguiente paso?</h3>
         <p>Asegura tu evolución profesional y certifícate con los expertos en capacitación industrial.</p>
         <div class="botones-cta">
-            <a href="https://wa.me/qr/A4UEBCCMYIQLC1." target="_blank" class="btn-inscribirse">Inscribirse y Certificarse</a>
-            <a href="https://wa.me/qr/A4UEBCCMYIQLC1" target="_blank" class="btn-wa-info">Escribir al WhatsApp</a>
+            <a href="https://wa.me/51999999999?text=Hola,%20deseo%20inscribirme%20y%20certificarme%20en%20este%20curso." target="_blank" class="btn-inscribirse">Inscribirse y Certificarse</a>
+            <a href="https://wa.me/51999999999?text=Hola,%20quisiera%20más%20información%20sobre%20el%20temario." target="_blank" class="btn-wa-info">Escribir al WhatsApp</a>
         </div>
     </section>
 
     <footer>
-        &copy; 2026 TRAINPRO - Expertos en Capacitación en Trabajos de Alto Riesgo
+        &copy; 2026 TRAINPRO - Expertos en Capacitación Industrial
     </footer>
 
 </body>

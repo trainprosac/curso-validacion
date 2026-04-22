@@ -5,149 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>TRAINPRO - Expertos en Capacitación Industrial</title>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;700;900&display=swap" rel="stylesheet">
-    <style>
-        /* --- PALETA DE COLORES (Basada en el logo TP) --- */
-        :root {
-            --bg-principal: #0b1116; /* Fondo ultra oscuro basado en el azul del logo */
-            --bg-tarjeta: #151f28; /* Azul pizarra oscuro para tarjetas */
-            --color-marca-azul: #2D4052; /* El azul exacto de tu logo */
-            --color-acento: #B05530; /* El color cobre/óxido de la flecha */
-            --color-acento-hover: #D4663A; /* Cobre más brillante para el neón */
-            --texto-principal: #ffffff;
-            --texto-secundario: #8B9DAF; /* Gris azulado para textos */
-            --borde-suave: #223240;
-        }
-
-        body { 
-            font-family: 'Montserrat', sans-serif; 
-            margin: 0; 
-            background-color: var(--bg-principal); 
-            color: var(--texto-principal); 
-            scroll-behavior: smooth;
-        }
-
-        /* --- TOPBAR --- */
-        header {
-            background-color: rgba(11, 17, 22, 0.85); 
-            backdrop-filter: blur(12px);
-            border-bottom: 1px solid var(--borde-suave);
-            padding: 15px 50px; 
-            display: flex; 
-            justify-content: space-between; 
-            align-items: center;
-            position: sticky; top: 0; z-index: 1000;
-        }
-        .brand-container {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-            text-decoration: none;
-        }
-        .logo-img { height: 45px; } /* Aquí cargará tu logo.png */
-        .logo-text { 
-            font-size: 24px; font-weight: 900; 
-            color: var(--texto-principal); letter-spacing: 1px;
-        }
-        
-        nav { display: flex; align-items: center; }
-        nav a { 
-            text-decoration: none; color: var(--texto-secundario); 
-            margin: 0 15px; font-weight: 500; transition: color 0.3s; 
-        }
-        nav a:hover { color: var(--color-acento-hover); }
-        
-        /* Botón Verificar en la barra */
-        .btn-nav-verificar { 
-            background: transparent; color: var(--color-acento-hover); 
-            border: 1px solid var(--color-acento); padding: 10px 20px; 
-            border-radius: 8px; margin-left: 15px; font-weight: 700; transition: 0.3s;
-        }
-        .btn-nav-verificar:hover { 
-            background: var(--color-acento); color: #fff; 
-            box-shadow: 0 0 15px rgba(176, 85, 48, 0.4);
-        }
-
-        /* --- HERO SECTION --- */
-        .hero {
-            /* El linear-gradient actúa como un filtro oscuro sobre tu imagen */
-            background: linear-gradient(rgba(11, 17, 22, 0.7), rgba(11, 17, 22, 0.95)), url('IMAG_HERO/HERO.png');
-            background-size: cover; /* Hace que la imagen cubra todo el espacio */
-            background-position: center; /* Centra la imagen */
-            background-repeat: no-repeat; /* Evita que la imagen se repita como mosaico */
-            text-align: center; 
-            padding: 140px 20px; /* Le di un poco más de espacio arriba y abajo */
-            border-bottom: 1px solid var(--borde-suave);
-        }
-        .hero h1 { font-size: 56px; margin-bottom: 15px; font-weight: 900; letter-spacing: -1px;}
-        .hero h1 span { color: var(--color-acento-hover); }
-        .hero p { font-size: 18px; color: var(--texto-secundario); max-width: 600px; margin: 0 auto 40px auto; line-height: 1.6;}
-        
-        /* --- CURSOS SECTION --- */
-        .seccion-cursos { padding: 80px 20px; text-align: center; max-width: 1200px; margin: auto; }
-        .seccion-cursos h2 { font-size: 36px; margin-bottom: 60px; font-weight: 800; color: #fff; }
-        .grid-cursos { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 30px; }
-        
-        .card-curso {
-            background: var(--bg-tarjeta); 
-            border: 1px solid var(--borde-suave);
-            border-radius: 16px; overflow: hidden;
-            transition: all 0.4s ease;
-            display: flex; flex-direction: column; cursor: pointer; text-decoration: none; text-align: left;
-        }
-        .card-curso:hover { 
-            transform: translateY(-10px); 
-            border-color: var(--color-acento);
-            box-shadow: 0 15px 30px rgba(176, 85, 48, 0.15); 
-        }
-        .card-curso img { width: 100%; height: 220px; object-fit: cover; opacity: 0.7; transition: 0.4s; filter: grayscale(30%); }
-        .card-curso:hover img { opacity: 1; filter: grayscale(0%); }
-        
-        .card-body { padding: 30px; flex-grow: 1; display: flex; flex-direction: column; }
-        .card-body h3 { margin-top: 0; color: var(--texto-principal); font-size: 22px; font-weight: 700;}
-        .card-body p { font-size: 15px; color: var(--texto-secundario); margin-bottom: 30px; line-height: 1.5;}
-        
-        .btn-temario {
-            margin-top: auto; display: inline-block; background: transparent;
-            color: var(--color-acento-hover); border: 1px solid var(--color-acento);
-            padding: 12px; border-radius: 8px; font-weight: 700; text-align: center;
-            text-transform: uppercase; font-size: 14px; letter-spacing: 1px;
-            transition: 0.3s;
-        }
-        .card-curso:hover .btn-temario { 
-            background: var(--color-acento); color: #fff; 
-            box-shadow: 0 0 15px rgba(176, 85, 48, 0.4); 
-        }
-
-        /* --- CONTACTO --- */
-        .seccion-contacto {
-            background: var(--bg-tarjeta); padding: 80px 20px; text-align: center;
-            border-top: 1px solid var(--borde-suave);
-        }
-        .seccion-contacto h2 { font-size: 32px; font-weight: 800; margin-bottom: 15px;}
-        .seccion-contacto p { color: var(--texto-secundario); margin-bottom: 40px; font-size: 16px;}
-        
-        .contacto-botones { display: flex; justify-content: center; gap: 20px; flex-wrap: wrap;}
-        .btn-wa { background: #25D366; color: white; padding: 16px 35px; text-decoration: none; border-radius: 10px; font-weight: 700; font-size: 16px; transition: 0.3s; }
-        .btn-wa:hover { box-shadow: 0 0 20px rgba(37, 211, 102, 0.4); transform: translateY(-2px);}
-        .btn-correo { background: var(--color-marca-azul); border: 1px solid var(--borde-suave); color: var(--texto-principal); padding: 16px 35px; text-decoration: none; border-radius: 10px; font-weight: 700; font-size: 16px; transition: 0.3s; }
-        .btn-correo:hover { background: var(--color-acento); box-shadow: 0 0 15px rgba(176, 85, 48, 0.4); border-color: var(--color-acento);}
-
-        /* FOOTER */
-        footer {
-            text-align: center; padding: 30px; color: var(--texto-secundario);
-            font-size: 14px; border-top: 1px solid var(--borde-suave);
-            background-color: var(--bg-principal);
-        }
-
-        /* WHATSAPP FLOTANTE */
-        .whatsapp-flotante { 
-            position: fixed; bottom: 30px; right: 30px; 
-            background-color: #25D366; color: white; padding: 15px 20px; 
-            border-radius: 50px; text-decoration: none; font-weight: bold; 
-            box-shadow: 0 4px 15px rgba(0,0,0,0.5); z-index: 1000; transition: 0.3s;
-        }
-        .whatsapp-flotante:hover { transform: scale(1.1); box-shadow: 0 0 20px rgba(37, 211, 102, 0.5); }
-    </style>
+    <link rel="stylesheet" href="style.css">
+    <script src="script.js" defer></script>
 </head>
 <body>
 
@@ -226,7 +85,7 @@
         <h2>¿Necesitas capacitar a tu personal?</h2>
         <p>Contáctanos hoy mismo y diseñaremos un plan a la medida de los requerimientos de tu empresa.</p>
         <div class="contacto-botones">
-            <a href="https://wa.me/51999999999" target="_blank" class="btn-wa">Escríbenos por WhatsApp</a>
+            <a href="https://wa.me/51987260390" target="_blank" class="btn-wa">Escríbenos por WhatsApp</a>
             <a href="mailto:gerencia@trainprosac.com" class="btn-correo">Enviar un Correo</a>
         </div>
     </section>
@@ -235,7 +94,8 @@
         &copy; 2026 TRAINPRO - Cursos de seguridad en Trabajos de alto Riesgo
     </footer>
 
-    <a href="https://wa.me/qr/A4UEBCCMYIQLC1" target="_blank" class="whatsapp-flotante">WhatsApp</a>
+    <a href="https://wa.me/51987260390" target="_blank" class="whatsapp-flotante">WhatsApp</a>
+    <link rel="stylesheet" href="style.css">
 
 </body>
 </html>
