@@ -77,3 +77,27 @@ async function verificarCertificado() {
         resultadoDiv.innerHTML = "<span style='color:#ff4d4d; font-weight:bold;'>Error de conexión con el servidor.</span>";
     }
 }
+
+// ==========================================================================
+// 3. LECTURA AUTOMÁTICA DE QR (AL ABRIR LA URL CON EL CÓDIGO)
+// ==========================================================================
+document.addEventListener('DOMContentLoaded', () => {
+    // Buscamos el input de la página
+    const inputVerificacion = document.getElementById('inputCodigo');
+
+    // Si el input existe, significa que estamos en la página correcta
+    if (inputVerificacion) {
+        
+        // Leemos si la URL trae el código (ej. trainprosac.com/verificar.html?codigo=XP92-51B8)
+        const urlParams = new URLSearchParams(window.location.search);
+        const codigoEscaneado = urlParams.get('codigo');
+
+        if (codigoEscaneado) {
+            // 1. Rellenamos la caja de texto automáticamente
+            inputVerificacion.value = codigoEscaneado;
+            
+            // 2. Ejecutamos tu función de validación
+            verificarCertificado(); 
+        }
+    }
+});
