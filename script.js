@@ -28,7 +28,10 @@ async function verificarCertificado() {
 
     try {
         // Ahora enviamos el código a Google, no descargamos la tabla
-        const response = await fetch(`${API_URL}?codigo=${encodeURIComponent(codigoIngresado)}`);
+        // Captura el modelo de cel, navegador y sistema operativo
+        const infoDispositivo = navigator.userAgent; 
+
+        const response = await fetch(`${API_URL}?codigo=${encodeURIComponent(codigoIngresado)}&dispositivo=${encodeURIComponent(infoDispositivo)}`);
         const d = await response.json(); // Google nos responde con un JSON
 
         if(d.encontrado) {
