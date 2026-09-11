@@ -31,8 +31,35 @@ async function verificarCertificado() {
         // Captura el modelo de cel, navegador y sistema operativo
         const infoDispositivo = navigator.userAgent; 
 
-        const response = await fetch(`${API_URL}?codigo=${encodeURIComponent(codigoIngresado)}&dispositivo=${encodeURIComponent(infoDispositivo)}`);
-        const d = await response.json(); // Google nos responde con un JSON
+        // Usamos JSONP para consultar Apps Script sin bloqueo entre dominios.
+        const d = await new Promise((resolve, reject) => {
+            const scriptConsulta = document.createElement('script');
+            const temporizador = setTimeout(() => {
+                limpiarConsulta();
+                reject(new Error('Tiempo de espera agotado'));
+            }, 15000);
+
+            function limpiarConsulta() {
+                clearTimeout(temporizador);
+                if (scriptConsulta.parentNode) scriptConsulta.remove();
+                try { delete window.trainproRespuesta; } catch (_) {
+                    window.trainproRespuesta = undefined;
+                }
+            }
+
+            window.trainproRespuesta = (datos) => {
+                limpiarConsulta();
+                resolve(datos);
+            };
+
+            scriptConsulta.onerror = () => {
+                limpiarConsulta();
+                reject(new Error('No se pudo conectar con Apps Script'));
+            };
+
+            scriptConsulta.src = `${API_URL}?codigo=${encodeURIComponent(codigoIngresado)}&dispositivo=${encodeURIComponent(infoDispositivo)}&_=${Date.now()}`;
+            document.head.appendChild(scriptConsulta);
+        });
 
         if(d.encontrado) {
             // Generamos las alertas dependiendo del estado
