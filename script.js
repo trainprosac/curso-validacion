@@ -3,7 +3,7 @@
 // ==========================================================================
 
 // PEGA AQUÍ LA URL DE TU APLICACIÓN WEB DE APPS SCRIPT (la que termina en /exec)
-const API_URL = 'https://script.google.com/macros/s/AKfycbwrs8SPR19axAwEdeF3gStBkZ2qDUAh0YY9db06CCMllfX486GNrVsgJw_TGPJKDSKF_A/exec'; 
+const API_URL = 'https://script.google.com/macros/s/AKfycbztoREivI0HxerQXH3Zx1eHuWyAnNn80CyE6PArIwpvYzHU4e2gqTmoQJ0xE4EmPcujFw/exec'; 
 
 const NUMERO_WHATSAPP = '51987260390';
 const CORREO_CONTACTO = 'gerencia@trainprosac.com';
