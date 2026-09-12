@@ -1,0 +1,8 @@
+:root{--texto-secundario:#566373;--color-exito:#167044;--color-acento:#a34925;--color-acento-hover:#a34925;--borde-suave:#dfe4e9}
+#resultado-validacion{margin-top:28px;overflow-wrap:anywhere}
+.resultado-tarjeta{background:#fff;border:1px solid var(--line);border-top:4px solid var(--copper);border-radius:14px;padding:30px;color:var(--ink)}
+.resultado-tarjeta>p{line-height:1.55}
+.resultado-tarjeta a{display:inline-block}
+.resultado-tarjeta h3{line-height:1.4}
+.verification-panel #inputCodigo{width:100%}
+@media(max-width:620px){.resultado-tarjeta{padding:22px}.resultado-tarjeta a{max-width:100%}}

@@ -133,7 +133,7 @@ document.addEventListener('DOMContentLoaded', () => {
             
             // 3. OCULTAMOS EL BOTÓN NARANJA
             // Busca todos los botones en la página y oculta el de validar
-            const botones = document.getElementsByTagName('button');
+            const botones = document.querySelectorAll('.btn-validar');
             for(let i = 0; i < botones.length; i++) {
                 botones[i].style.display = 'none';
             }
