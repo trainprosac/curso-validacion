@@ -688,6 +688,16 @@ async function cargarCertificado() {
     }
 
 
+    // Tiempo máximo de espera: 15 segundos
+    const controlador = new AbortController();
+
+    const temporizador = setTimeout(() => {
+
+        controlador.abort();
+
+    }, 15000);
+
+
     try {
 
         const url =
@@ -701,32 +711,44 @@ async function cargarCertificado() {
 
 
         const response = await fetch(url, {
+
             method: 'GET',
+
             redirect: 'follow',
-            cache: 'no-store'
+
+            cache: 'no-store',
+
+            signal: controlador.signal
+
         });
 
 
         if (!response.ok) {
+
             throw new Error(
                 'Respuesta HTTP ' + response.status
             );
         }
 
 
-        const datos = await response.json();
+        const datos =
+            await response.json();
 
 
         ocultarTodos();
 
 
-        if (datos.success && datos.encontrado) {
+        if (
+            datos.success &&
+            datos.encontrado
+        ) {
 
             mostrarValido(datos);
 
         } else {
 
             mostrarNoEncontrado(codigo);
+
         }
 
 
@@ -737,12 +759,33 @@ async function cargarCertificado() {
             error
         );
 
+
         ocultarTodos();
+
 
         document
             .getElementById('estado-error')
             .hidden = false;
+
+
+        // Nos permite saber en consola si fue timeout.
+        if (error.name === 'AbortError') {
+
+            console.warn(
+                'TRAINPRO - La consulta superó los 15 segundos.'
+            );
+
+        }
+
+
+    } finally {
+
+        // Evita que el temporizador siga activo
+        // si la consulta terminó correctamente.
+        clearTimeout(temporizador);
+
     }
+
 }
 
 
