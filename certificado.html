@@ -864,13 +864,9 @@ function configurarEstadoYVencimiento(datos) {
         String(datos.vencimiento || '').trim();
 
 
-    const estadoMinuscula =
-        estadoOriginal.toLowerCase();
-
-    const vencimientoMinuscula =
-        vencimientoOriginal.toLowerCase();
-
-
+    // Algunos certificados antiguos tienen errores de fórmula
+    // en la columna de estado. En ese caso usamos el valor
+    // disponible en vencimiento.
     const estadoInvalido =
         !estadoOriginal ||
         estadoOriginal === '#VALUE!' ||
@@ -878,24 +874,21 @@ function configurarEstadoYVencimiento(datos) {
         estadoOriginal === '#REF!';
 
 
-    let estadoUtil = estadoInvalido
-        ? vencimientoOriginal
-        : estadoOriginal;
+    const estadoUtil =
+        estadoInvalido
+            ? vencimientoOriginal
+            : estadoOriginal;
 
 
-    let estadoComparar =
+    const estadoComparar =
         String(estadoUtil).toLowerCase();
 
 
+    // Comprueba si el valor recibido es una fecha.
     const pareceFecha =
         /^\s*\d{1,2}\/\d{1,2}\/\d{4}\s*$/
         .test(vencimientoOriginal);
 
-
-    const fila =
-        document.getElementById(
-            'fila-vencimiento'
-        );
 
     const label =
         document.getElementById(
@@ -925,6 +918,7 @@ function configurarEstadoYVencimiento(datos) {
             vencimientoOriginal ||
             estadoOriginal ||
             'Registrado';
+
     }
 
 
@@ -958,7 +952,9 @@ function configurarEstadoYVencimiento(datos) {
 
         aviso.textContent =
             '⚠ El certificado está próximo a vencer.';
+
     }
+
 }
 
 
