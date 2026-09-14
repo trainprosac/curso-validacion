@@ -1,0 +1,953 @@
+<!doctype html>
+<html lang="es">
+
+<head>
+    <meta charset="utf-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1"
+    >
+
+    <meta name="theme-color" content="#1d2d43">
+
+    <title>Verificación de certificado | TRAINPRO</title>
+
+    <meta
+        name="description"
+        content="Consulta oficial de certificados TRAINPRO."
+    >
+
+    <link
+        rel="icon"
+        href="assets/logo.png"
+        type="image/png"
+    >
+
+    <link
+        rel="stylesheet"
+        href="styles.css"
+    >
+
+    <script src="main.js" defer></script>
+
+    <style>
+        .certificate-result-page {
+            min-height: 70vh;
+            background: #f3f6f9;
+            padding: 55px 20px 80px;
+        }
+
+        .certificate-result-wrap {
+            width: min(680px, 100%);
+            margin: 0 auto;
+        }
+
+        .verification-brandline {
+            text-align: center;
+            margin-bottom: 20px;
+            font-size: 12px;
+            font-weight: 800;
+            letter-spacing: .16em;
+            color: #1d2d43;
+        }
+
+        .certificate-result-card {
+            background: #fff;
+            border-radius: 18px;
+            padding: 42px 38px;
+            box-shadow:
+                0 18px 45px rgba(29, 45, 67, .10);
+            border-top: 6px solid #b64c25;
+        }
+
+        .certificate-result-card.loading {
+            text-align: center;
+        }
+
+        .result-icon {
+            width: 54px;
+            height: 54px;
+            margin: 0 auto 18px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 26px;
+            font-weight: 800;
+        }
+
+        .result-icon.valid {
+            background: #eaf7ef;
+            color: #18733d;
+        }
+
+        .result-icon.invalid {
+            background: #fdecec;
+            color: #b32323;
+        }
+
+        .result-title {
+            margin: 0;
+            text-align: center;
+            font-size: clamp(26px, 4vw, 34px);
+            line-height: 1.15;
+            color: #1d2d43;
+        }
+
+        .result-title.invalid {
+            color: #b32323;
+        }
+
+        .result-description {
+            margin: 12px auto 30px;
+            max-width: 520px;
+            text-align: center;
+            color: #6b7788;
+            line-height: 1.6;
+        }
+
+        .certificate-status {
+            display: none;
+            padding: 14px 16px;
+            margin-bottom: 22px;
+            border-radius: 9px;
+            text-align: center;
+            font-weight: 700;
+        }
+
+        .certificate-status.warning {
+            display: block;
+            background: #fff5db;
+            border: 1px solid #efd284;
+            color: #795900;
+        }
+
+        .certificate-status.danger {
+            display: block;
+            background: #fdecec;
+            border: 1px solid #efbbbb;
+            color: #a22020;
+        }
+
+        .certificate-data {
+            margin-top: 10px;
+        }
+
+        .certificate-row {
+            padding: 18px 0;
+            border-bottom: 1px solid #e4e8ed;
+        }
+
+        .certificate-row:last-child {
+            border-bottom: 0;
+        }
+
+        .certificate-label {
+            display: block;
+            margin-bottom: 7px;
+            color: #7b8799;
+            font-size: 11px;
+            font-weight: 800;
+            letter-spacing: .10em;
+            text-transform: uppercase;
+        }
+
+        .certificate-value {
+            display: block;
+            color: #1d2d43;
+            font-size: 18px;
+            font-weight: 750;
+            line-height: 1.45;
+        }
+
+        .verification-code {
+            font-family:
+                ui-monospace,
+                SFMono-Regular,
+                Menlo,
+                Consolas,
+                monospace;
+            letter-spacing: .04em;
+        }
+
+        .verification-confirmation {
+            margin-top: 27px;
+            padding: 17px 20px;
+            background: #f4f6f8;
+            border-radius: 9px;
+            color: #647084;
+            font-size: 13px;
+            line-height: 1.6;
+            text-align: center;
+        }
+
+        .result-actions {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            flex-wrap: wrap;
+            margin-top: 26px;
+        }
+
+        .result-actions .button {
+            min-width: 190px;
+            justify-content: center;
+        }
+
+        .loading-spinner {
+            width: 34px;
+            height: 34px;
+            margin: 0 auto 18px;
+            border: 4px solid #e3e7ec;
+            border-top-color: #b64c25;
+            border-radius: 50%;
+            animation: trainpro-spin .85s linear infinite;
+        }
+
+        @keyframes trainpro-spin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        @media (max-width: 600px) {
+            .certificate-result-page {
+                padding: 25px 14px 55px;
+            }
+
+            .certificate-result-card {
+                padding: 30px 22px;
+                border-radius: 14px;
+            }
+
+            .certificate-value {
+                font-size: 16px;
+            }
+
+            .result-actions {
+                flex-direction: column;
+            }
+
+            .result-actions .button {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+
+
+<body>
+
+<a class="skip" href="#contenido">
+    Saltar al contenido
+</a>
+
+
+<div class="utility">
+    <div class="container">
+
+        <span>
+            Virtual en vivo · Asincrónico · Presencial
+        </span>
+
+        <a href="verificar.html">
+            Verifica tu certificado
+            <span aria-hidden="true">↗</span>
+        </a>
+
+    </div>
+</div>
+
+
+<header class="header">
+
+    <div class="container nav-wrap">
+
+        <a
+            class="brand"
+            href="index.html"
+            aria-label="TRAINPRO, inicio"
+        >
+
+            <img
+                src="assets/logo.png"
+                alt=""
+                width="66"
+                height="66"
+            >
+
+            <span>
+                TRAINPRO
+
+                <small>
+                    CAPACITACIÓN Y ENTRENAMIENTO
+                </small>
+            </span>
+
+        </a>
+
+
+        <button
+            class="menu-toggle"
+            aria-expanded="false"
+            aria-controls="nav"
+        >
+            Menú
+            <span aria-hidden="true">☰</span>
+        </button>
+
+
+        <nav id="nav" aria-label="Principal">
+
+            <a href="index.html#cursos">
+                Cursos
+            </a>
+
+            <a href="index.html#operadores">
+                Operadores
+            </a>
+
+            <a href="index.html#modalidades">
+                Modalidades
+            </a>
+
+            <a href="index.html#empresas">
+                Para empresas
+            </a>
+
+            <a
+                class="button button-small"
+                href="https://wa.me/51987260390?text=Hola%20TRAINPRO%2C%20quisiera%20informaci%C3%B3n%20sobre%20sus%20capacitaciones."
+            >
+                Hablemos por WhatsApp
+                <span aria-hidden="true">↗</span>
+            </a>
+
+        </nav>
+
+    </div>
+
+</header>
+
+
+<main
+    id="contenido"
+    class="certificate-result-page"
+>
+
+    <div class="certificate-result-wrap">
+
+        <div class="verification-brandline">
+            TRAINPRO · VERIFICACIÓN OFICIAL
+        </div>
+
+
+        <!-- CARGANDO -->
+
+        <section
+            id="estado-cargando"
+            class="certificate-result-card loading"
+        >
+
+            <div class="loading-spinner"></div>
+
+            <h1 class="result-title">
+                Verificando certificado
+            </h1>
+
+            <p class="result-description">
+                Estamos consultando la base oficial de TRAINPRO.
+            </p>
+
+        </section>
+
+
+        <!-- CERTIFICADO VÁLIDO -->
+
+        <section
+            id="estado-valido"
+            class="certificate-result-card"
+            hidden
+        >
+
+            <div class="result-icon valid">
+                ✓
+            </div>
+
+            <h1 class="result-title">
+                CERTIFICADO VÁLIDO
+            </h1>
+
+            <p class="result-description">
+                La información consultada se encuentra
+                registrada en la base oficial de TRAINPRO.
+            </p>
+
+
+            <div
+                id="aviso-estado"
+                class="certificate-status"
+            ></div>
+
+
+            <div class="certificate-data">
+
+                <div class="certificate-row">
+
+                    <span class="certificate-label">
+                        Titular del certificado
+                    </span>
+
+                    <span
+                        id="dato-titular"
+                        class="certificate-value"
+                    ></span>
+
+                </div>
+
+
+                <div class="certificate-row">
+
+                    <span class="certificate-label">
+                        Programa / Tema
+                    </span>
+
+                    <span
+                        id="dato-tema"
+                        class="certificate-value"
+                    ></span>
+
+                </div>
+
+
+                <div
+                    id="fila-vencimiento"
+                    class="certificate-row"
+                >
+
+                    <span
+                        id="label-vencimiento"
+                        class="certificate-label"
+                    >
+                        Fecha de vencimiento
+                    </span>
+
+                    <span
+                        id="dato-vencimiento"
+                        class="certificate-value"
+                    ></span>
+
+                </div>
+
+
+                <div class="certificate-row">
+
+                    <span class="certificate-label">
+                        Código de verificación
+                    </span>
+
+                    <span
+                        id="dato-codigo"
+                        class="certificate-value verification-code"
+                    ></span>
+
+                </div>
+
+            </div>
+
+
+            <div class="verification-confirmation">
+                Este resultado corresponde a una consulta
+                realizada directamente sobre la base de
+                certificados de TRAINPRO.
+            </div>
+
+
+            <div class="result-actions">
+
+                <a
+                    class="button"
+                    href="verificar.html"
+                >
+                    Verificar otro certificado
+                </a>
+
+                <a
+                    id="boton-whatsapp-valido"
+                    class="button button-outline"
+                    target="_blank"
+                    rel="noopener"
+                    href="#"
+                >
+                    Consultar a TRAINPRO
+                </a>
+
+            </div>
+
+        </section>
+
+
+        <!-- NO ENCONTRADO -->
+
+        <section
+            id="estado-no-encontrado"
+            class="certificate-result-card"
+            hidden
+        >
+
+            <div class="result-icon invalid">
+                ×
+            </div>
+
+            <h1 class="result-title invalid">
+                CERTIFICADO NO ENCONTRADO
+            </h1>
+
+            <p class="result-description">
+                No encontramos un certificado asociado al código
+                consultado. Revisa que haya sido ingresado
+                correctamente.
+            </p>
+
+
+            <div class="certificate-row">
+
+                <span class="certificate-label">
+                    Código consultado
+                </span>
+
+                <span
+                    id="codigo-no-encontrado"
+                    class="certificate-value verification-code"
+                ></span>
+
+            </div>
+
+
+            <div class="result-actions">
+
+                <a
+                    class="button"
+                    href="verificar.html"
+                >
+                    Realizar otra consulta
+                </a>
+
+                <a
+                    id="boton-whatsapp-error"
+                    class="button button-outline"
+                    target="_blank"
+                    rel="noopener"
+                    href="#"
+                >
+                    Solicitar ayuda
+                </a>
+
+            </div>
+
+        </section>
+
+
+        <!-- ERROR -->
+
+        <section
+            id="estado-error"
+            class="certificate-result-card"
+            hidden
+        >
+
+            <div class="result-icon invalid">
+                !
+            </div>
+
+            <h1 class="result-title invalid">
+                No pudimos completar la verificación
+            </h1>
+
+            <p class="result-description">
+                Ocurrió un problema temporal al consultar la base
+                de certificados. Intenta nuevamente.
+            </p>
+
+
+            <div class="result-actions">
+
+                <a
+                    class="button"
+                    href="verificar.html"
+                >
+                    Volver al verificador
+                </a>
+
+            </div>
+
+        </section>
+
+    </div>
+
+</main>
+
+
+<footer>
+
+    <div class="container footer-grid">
+
+        <div class="footer-brand">
+
+            TRAINPRO
+
+            <p>
+                Trabaja seguro. Regresa seguro.
+            </p>
+
+        </div>
+
+
+        <div>
+
+            <strong>
+                Conversemos
+            </strong>
+
+            <a
+                href="https://wa.me/51987260390"
+            >
+                +51 987 260 390
+            </a>
+
+            <a
+                href="mailto:gerencia@trainprosac.com"
+            >
+                gerencia@trainprosac.com
+            </a>
+
+        </div>
+
+
+        <div>
+
+            <strong>
+                Explora
+            </strong>
+
+            <a href="index.html#cursos">
+                Nuestros cursos
+            </a>
+
+            <a href="verificar.html">
+                Verificar certificado
+            </a>
+
+        </div>
+
+    </div>
+
+
+    <div class="container footer-bottom">
+
+        <span>
+            © 2026 TRAINPRO
+        </span>
+
+        <span>
+            Capacitación en seguridad y trabajos de alto riesgo
+        </span>
+
+    </div>
+
+</footer>
+
+
+<script>
+
+const TRAINPRO_API =
+    'https://script.google.com/macros/s/AKfycbxMDIYF-MS4zbtZQGOHINnFILRtQLWWVY0aOpY7zjpgA7nxEjjgz3NId9HXMZXiJpkk5w/exec';
+
+
+const NUMERO_WHATSAPP = '51987260390';
+
+
+document.addEventListener('DOMContentLoaded', cargarCertificado);
+
+
+async function cargarCertificado() {
+
+    const params =
+        new URLSearchParams(window.location.search);
+
+    const codigo =
+        (params.get('codigo') || '').trim();
+
+
+    if (!codigo) {
+
+        window.location.replace('verificar.html');
+
+        return;
+    }
+
+
+    try {
+
+        const url =
+            TRAINPRO_API +
+            '?codigo=' +
+            encodeURIComponent(codigo) +
+            '&ua=' +
+            encodeURIComponent(navigator.userAgent) +
+            '&_=' +
+            Date.now();
+
+
+        const response = await fetch(url, {
+            method: 'GET',
+            redirect: 'follow',
+            cache: 'no-store'
+        });
+
+
+        if (!response.ok) {
+            throw new Error(
+                'Respuesta HTTP ' + response.status
+            );
+        }
+
+
+        const datos = await response.json();
+
+
+        ocultarTodos();
+
+
+        if (datos.success && datos.encontrado) {
+
+            mostrarValido(datos);
+
+        } else {
+
+            mostrarNoEncontrado(codigo);
+        }
+
+
+    } catch (error) {
+
+        console.error(
+            'TRAINPRO - Error de verificación:',
+            error
+        );
+
+        ocultarTodos();
+
+        document
+            .getElementById('estado-error')
+            .hidden = false;
+    }
+}
+
+
+function ocultarTodos() {
+
+    document
+        .getElementById('estado-cargando')
+        .hidden = true;
+
+    document
+        .getElementById('estado-valido')
+        .hidden = true;
+
+    document
+        .getElementById('estado-no-encontrado')
+        .hidden = true;
+
+    document
+        .getElementById('estado-error')
+        .hidden = true;
+}
+
+
+function mostrarValido(datos) {
+
+    document
+        .getElementById('estado-valido')
+        .hidden = false;
+
+
+    document
+        .getElementById('dato-titular')
+        .textContent =
+        datos.titular || 'No registrado';
+
+
+    document
+        .getElementById('dato-tema')
+        .textContent =
+        datos.tema || 'No registrado';
+
+
+    document
+        .getElementById('dato-codigo')
+        .textContent =
+        datos.codigo || '';
+
+
+    configurarEstadoYVencimiento(datos);
+
+
+    const mensaje =
+        'Hola TRAINPRO, quisiera consultar sobre el certificado ' +
+        (datos.codigo || '') +
+        ' a nombre de ' +
+        (datos.titular || '') +
+        '.';
+
+
+    document
+        .getElementById('boton-whatsapp-valido')
+        .href =
+        'https://wa.me/' +
+        NUMERO_WHATSAPP +
+        '?text=' +
+        encodeURIComponent(mensaje);
+}
+
+
+function configurarEstadoYVencimiento(datos) {
+
+    const estadoOriginal =
+        String(datos.estado || '').trim();
+
+    const vencimientoOriginal =
+        String(datos.vencimiento || '').trim();
+
+
+    const estadoMinuscula =
+        estadoOriginal.toLowerCase();
+
+    const vencimientoMinuscula =
+        vencimientoOriginal.toLowerCase();
+
+
+    const estadoInvalido =
+        !estadoOriginal ||
+        estadoOriginal === '#VALUE!' ||
+        estadoOriginal === '#N/A' ||
+        estadoOriginal === '#REF!';
+
+
+    let estadoUtil = estadoInvalido
+        ? vencimientoOriginal
+        : estadoOriginal;
+
+
+    let estadoComparar =
+        String(estadoUtil).toLowerCase();
+
+
+    const pareceFecha =
+        /^\s*\d{1,2}\/\d{1,2}\/\d{4}\s*$/
+        .test(vencimientoOriginal);
+
+
+    const fila =
+        document.getElementById(
+            'fila-vencimiento'
+        );
+
+    const label =
+        document.getElementById(
+            'label-vencimiento'
+        );
+
+    const valor =
+        document.getElementById(
+            'dato-vencimiento'
+        );
+
+
+    if (pareceFecha) {
+
+        label.textContent =
+            'Fecha de vencimiento';
+
+        valor.textContent =
+            vencimientoOriginal;
+
+    } else {
+
+        label.textContent =
+            'Estado del certificado';
+
+        valor.textContent =
+            vencimientoOriginal ||
+            estadoOriginal ||
+            'Registrado';
+    }
+
+
+    const aviso =
+        document.getElementById(
+            'aviso-estado'
+        );
+
+
+    aviso.className =
+        'certificate-status';
+
+    aviso.textContent = '';
+
+
+    if (
+        estadoComparar.includes('caducado') ||
+        estadoComparar.includes('vencido')
+    ) {
+
+        aviso.classList.add('danger');
+
+        aviso.textContent =
+            '⚠ El certificado se encuentra registrado, pero ha vencido.';
+
+    } else if (
+        estadoComparar.includes('por vencer')
+    ) {
+
+        aviso.classList.add('warning');
+
+        aviso.textContent =
+            '⚠ El certificado está próximo a vencer.';
+    }
+}
+
+
+function mostrarNoEncontrado(codigo) {
+
+    document
+        .getElementById('estado-no-encontrado')
+        .hidden = false;
+
+
+    document
+        .getElementById('codigo-no-encontrado')
+        .textContent =
+        codigo;
+
+
+    const mensaje =
+        'Hola TRAINPRO, necesito ayuda para verificar el certificado con código ' +
+        codigo +
+        '.';
+
+
+    document
+        .getElementById('boton-whatsapp-error')
+        .href =
+        'https://wa.me/' +
+        NUMERO_WHATSAPP +
+        '?text=' +
+        encodeURIComponent(mensaje);
+}
+
+</script>
+
+</body>
+</html>
