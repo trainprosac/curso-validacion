@@ -132,43 +132,19 @@ async function verificarCertificado() {
 // ==========================================================================
 // 3. LECTURA AUTOMÁTICA DE QR E INTERFAZ INVISIBLE
 // ==========================================================================
+// =========================================================
+// QR / ENLACE DIRECTO
+// =========================================================
 document.addEventListener('DOMContentLoaded', () => {
-    // Buscamos el input de la página
-    const inputVerificacion = document.getElementById('inputCodigo');
+    const params = new URLSearchParams(window.location.search);
+    const codigo = params.get('codigo');
 
-    // Si el input existe, significa que estamos en la página correcta
-    if (inputVerificacion) {
-        
-        // Leemos si la URL trae el código 
-        const urlParams = new URLSearchParams(window.location.search);
-        const codigoEscaneado = urlParams.get('codigo');
-
-        // SI EL USUARIO VIENE POR QR (Hay código en la URL)
-        if (codigoEscaneado) {
-            
-            // 1. Rellenamos la caja de texto de forma interna
-            inputVerificacion.value = codigoEscaneado;
-            
-            // 2. OCULTAMOS EL INPUT (Caja negra)
-            inputVerificacion.style.display = 'none';
-            
-            // 3. OCULTAMOS EL BOTÓN NARANJA
-            // Busca todos los botones en la página y oculta el de validar
-            const botones = document.querySelectorAll('.btn-validar');
-            for(let i = 0; i < botones.length; i++) {
-                botones[i].style.display = 'none';
-            }
-
-            // 4. OCULTAMOS EL TEXTO DE INSTRUCCIONES ("Ingresa el código único...")
-            const parrafos = document.getElementsByTagName('p');
-            for(let i = 0; i < parrafos.length; i++) {
-                if(parrafos[i].innerText.includes("Ingresa el código")) {
-                    parrafos[i].style.display = 'none';
-                }
-            }
-
-            // 5. Ejecutamos tu función de validación de inmediato
-            verificarCertificado(); 
-        }
+    // Si el usuario llegó escaneando un QR antiguo que apunta
+    // a verificar.html?codigo=XXXX, lo enviamos a la nueva
+    // página de resultados.
+    if (codigo) {
+        window.location.replace(
+            `certificado.html?codigo=${encodeURIComponent(codigo)}`
+        );
     }
 });
