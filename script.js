@@ -8,6 +8,27 @@ const API_URL = 'https://script.google.com/macros/s/AKfycbztoREivI0HxerQXH3Zx1eH
 const NUMERO_WHATSAPP = '51987260390';
 const CORREO_CONTACTO = 'gerencia@trainprosac.com';
 
+function abrirResultadoCertificado() {
+    const input = document.getElementById('inputCodigo');
+
+    if (!input) return;
+
+    const codigo = input.value.trim();
+
+    if (!codigo) {
+        const resultado = document.getElementById('resultado-validacion');
+
+        if (resultado) {
+            resultado.innerHTML =
+                "<span style='color:#c62828;font-weight:bold;'>Ingresa un código.</span>";
+        }
+
+        return;
+    }
+
+    window.location.href =
+        `certificado.html?codigo=${encodeURIComponent(codigo)}`;
+}
 // ==========================================================================
 // 2. LA LÓGICA DE VALIDACIÓN SEGURA
 // ==========================================================================
